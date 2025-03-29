@@ -6,19 +6,17 @@
 //
 
 import SwiftUI
-
+ 
 struct ContentView: View {
-    var body: some View {
-        TabView {
-            HomeView(viewModel: UserViewModel())
-                .tabItem {
-                    Label("Explora", systemImage: "magnifyingglass")
-                }
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
 
-            ProfileView(viewModel: UserViewModel())
-                .tabItem {
-                    Label("Perfil", systemImage: "person.circle")
-                }
+    var body: some View {
+        if isLoggedIn {
+            MainAppView()
+        } else {
+            LoginView(onLoginSuccess: {
+                isLoggedIn = true
+            })
         }
     }
 }
